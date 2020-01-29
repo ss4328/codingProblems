@@ -1,0 +1,26 @@
+﻿<Properties StartupConfiguration="{795C594F-8044-4258-B220-6D10BE3A6A12}|Default">
+  <MonoDevelop.Ide.ItemProperties.addTwoNumbersLL FirstBuild="True" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="addTwoNumbersLL/Program.cs">
+    <Files>
+      <File FileName="addTwoNumbersLL/Program.cs" Line="44" Column="60" />
+      <File FileName="../../mergeLinkedLists/mergeLinkedLists/Program.cs" Line="11" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="addTwoNumbersLL" expanded="True">
+            <Node name="addTwoNumbersLL" expanded="True">
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
