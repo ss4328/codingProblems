@@ -1130,6 +1130,8 @@ public class Main {
 
     }
 
+
+
     //q2
 //    public static int findMedianOfTwoArrays(int[] arr){
 //        //approach 1: Space needed -> m+n
@@ -1139,15 +1141,51 @@ public class Main {
 //
 //        //approach 2:
 //    }
+
+
 //
 //    //q3
     public static int existInBitonicArr(int[] arr){
-        //find inflection point
+        //find inflection point via binary search
+        int bitonic_point = 0;
+
         //binary search in incr order arr part,
         //reverse bin search in decr order arr part
 
     }
 
+    public static int binSearchIncr(int[] arr, int key, int low, int high){
+        while(low < high){
+            int mid = low + (high-low)/2;
+            if(arr[mid] == key){
+                return mid;
+            }
+            else if(key>=arr[mid]){
+                binSearchIncr(arr,key,mid,high);
+            }
+            else{
+                binSearchIncr(arr,key,0,mid);
+            }
+        }
+        return -1;
+    }
+
+    public static int binSearchDecr(int[] arr, int key, int low, int high){
+        while(low<high){
+            int mid = low+ (high-low)/2;
+
+            if(arr[mid]==key){
+                return mid;
+            }
+            else if(key>=arr[mid]){
+                binSearchDecr(arr,key, 0,mid);
+            }
+            else{
+                binSearchDecr(arr,key,mid,high);
+            }
+        }
+        return -1;
+    }
     //q4
 
 
