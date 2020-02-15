@@ -95,6 +95,20 @@ public class Node {
     }
     //space O(n); time O(n)
 
+    public Node returnNthFromLastClever(int n, Node root){
+        Node first = root;
+        Node second = root;
+        for(int i=0;i<n;i++){
+            second = second.nextNode;
+        }
+        while(second.nextNode!=null){
+            second = second.nextNode;
+            first= first.nextNode;
+        }
+        return first;
+    }
+    //space->O(1); time O(n)
+
 
     //q4
     public int findMiddleElement( Node root){
@@ -166,6 +180,9 @@ public class Node {
     //space O(1); time O(n)
 
     //q7 idk
+//    public static int detectAndCountLoop(Node root){
+//
+//    }
 
     //q8
     //the minimum complexity must be atleast O(n) since we have to check each element
@@ -249,19 +266,128 @@ public class Node {
 //
 //    }
 
-    public void removeDuplicatesSorted(Node root){
+    //leetcode 83
+
+    //BS approach: saving too much and overcomplicating stuff.
+    //KEY: Don't save head?? Just return head in the end and manipulate list in code
+//    public void removeDuplicatesSorted(Node root){
+//        Node cur = root;
+//        int curVal = cur.data;
+//        while(cur.nextNode!=null){
+//            while(cur.nextNode.data==cur.data){
+//                //null check needed here
+//                cur = cur.nextNode;
+//            }
+//            Node nextNode = cur.nextNode;
+//            root.nextNode = nextNode;
+//
+//        }
+//    }
+
+    //q10 //leetcode 83
+    public Node removeDuplicatesSorted(Node root){
         Node cur = root;
-        int curVal = cur.data;
-        while(cur.nextNode!=null){
-            while(cur.nextNode.data==cur.data){
-                //null check needed here
+        while(cur!=null&&cur.nextNode!=null){
+            if(cur.data==cur.nextNode.data){
+                cur.nextNode = cur.nextNode.nextNode;
+            }
+            else{
                 cur = cur.nextNode;
             }
-            Node nextNode = cur.nextNode;
-            root.nextNode = nextNode;
+        }
+        return root;
+    }
+    //lc fastest
+    //time: O(n); space: O(1)
 
+    //q11
+    public void swapNodes(int from, int to, Node root){
+
+        //handled for default case, root, and last node remaining!!!
+        Node n1 = root;
+        Node n2 = root;
+
+        while(n1.data!=from){
+            n1 = n1.nextNode;
+        }
+
+        while(n2.data!=to){
+            n2 = n2.nextNode;
+        }
+
+        Node beforen1 = root;
+        Node beforen2 = root;
+
+        while(beforen1.nextNode!=n1){
+            beforen1 = beforen1.nextNode;
+        }
+        while(beforen2.nextNode!=n2){
+            beforen2=beforen2.nextNode;
+        }
+
+        //switching next's
+        Node tempn1Next = root;
+        n1.nextNode=n2.nextNode;
+        n2.nextNode = tempn1Next;
+
+        //switching the address to modified nodes
+        beforen1.nextNode = n2;
+        beforen2.nextNode= n1;
+    }
+    //handled for default case, root, and last node remaining!!!
+
+    //time: O(n); space: O(1)
+
+    //q12
+    public void pairwiseSwap(Node root){
+        //here, we swap the first two, then mode ptrs by 2 and 2 for prev and next respectively
+
+        Node n1 = root;
+        Node n2 = root.nextNode;
+
+        while(n2.nextNode!=null){
+            swapNodes(n1.data,n2.data,root);
+            if(n2.nextNode!=null){
+                n2 = n2.nextNode;
+                if(n2.nextNode!=null){
+                    n2 = n1.nextNode;
+                }
+            }
         }
     }
+    //time: O(n); space: O(1)
+
+    //leetcode 1290
+//    Given head which is a reference node to a singly-linked list. The value of each node in the linked list is either 0 or 1. The linked list holds the binary representation of a number.
+//
+//    Return the decimal value of the number in the linked list.
+//    public int getDecimalValue(ListNode head) {
+//        int res =0;
+//        ListNode dup = head;
+//
+//        int count =-1;  //max pow
+//        while(dup!=null){
+//            count++;
+//            dup = dup.next;
+//
+//        }
+//        while(head!=null){
+//            if(head.val==1){
+//                res+=Math.pow(2,count);
+//            }
+//            else{
+//
+//            }
+//            head = head.next;
+//            count--;
+//        }
+//        return res;
+//    }
+
+
+
+
+
 
 
 
