@@ -1,6 +1,6 @@
 # codingProblems
 
-I'm practicing these problems to develop general programming acumen. These are mostly data structures and algorithms problems which I've compiled either myseld or with the help of some very amazing peers that I've had the chance to meet over the years! The repo will be updated as follows:
+I'm practicing these problems to develop general programming acumen. These are mostly data structures and algorithms problems which I've compiled either myself or with the help of some very amazing peers that I've had the chance to meet over the years! The repo will be updated as follows:
 
 Linear DS
 -arrays
