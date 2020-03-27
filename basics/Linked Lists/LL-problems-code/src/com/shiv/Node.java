@@ -1,7 +1,6 @@
 package com.shiv;
 
-import java.util.HashMap;
-import java.util.Stack;
+import java.util.*;
 
 public class Node {
     int data;
@@ -129,6 +128,24 @@ public class Node {
         return returnNthNode(midIndex,root).data;
     }
     //space O(1); time O(n)
+
+    public Node findMiddleElementClever(Node root){
+        Node first = root;
+        Node second = root;
+
+        //second moves at twice the speed as 1st, when second reaches last elem, first is in the middle
+        while(second.nextNode!=null){
+            first = first.nextNode;
+            second = second.nextNode;
+            if(second.nextNode!=null){
+                second = second.nextNode;
+            }
+            else{
+                return first;
+            }
+        }
+        return new Node(Integer.MIN_VALUE);
+    }
 
     //q5
     public int findFrequencyOfKey(int k, Node root){
@@ -357,6 +374,8 @@ public class Node {
     }
     //time: O(n); space: O(1)
 
+    //need to clear some basic concepts before moving forward; attempting easy leetcode questions.
+
     //leetcode 1290
 //    Given head which is a reference node to a singly-linked list. The value of each node in the linked list is either 0 or 1. The linked list holds the binary representation of a number.
 //
@@ -384,6 +403,215 @@ public class Node {
 //        return res;
 //    }
 
+    //Leetcode 206: reverse Linked List
+//    public ListNode reverseList(ListNode head) {
+//        Stack<Integer> numStack = new Stack<Integer>();
+//
+//        while(head!=null){
+//            numStack.push(head.val);
+//            head = head.next;
+//        }
+//
+//        ListNode res;
+//        ListNode resHead;
+//        if(!numStack.empty()){
+//            res = new ListNode(numStack.pop());
+//            resHead = res;
+//        }
+//        else{
+//            return head;
+//        }
+//
+//        while(!numStack.empty()){
+//            res.next = new ListNode(numStack.pop());
+//            res = res.next;
+//        }
+//
+//        return resHead;
+//    }
+    //time: O(n); space: O(n)
+
+    //Runtime: 2 ms, faster than 8.30% of Java online submissions for Reverse Linked List.
+    //Memory Usage: 38.3 MB, less than 5.04% of Java online submissions for Reverse Linked List.
+    //obviously there's another better way, I'm using too much memory, making list again and it's still too slow :/
+
+
+    //q13
+     public static void moveLastToFirst(Node root){
+
+        Node secondLast = root;
+        Node last = root;
+
+        while(secondLast.nextNode.nextNode!=null){
+            secondLast = secondLast.nextNode;
+        }
+
+        last = secondLast.nextNode;
+        secondLast.nextNode=null;
+        last.nextNode = root;
+
+        root = last;
+     }
+
+     //q14
+     public static Node findCommonElements(Node root1, Node root2){
+        //attempt 1:
+        //store list 1 in stack, then see if elements are in second, if exist, add to new list and return it
+
+         Node res = new Node(Integer.MIN_VALUE);
+
+         PriorityQueue<Integer> l1queue= new PriorityQueue<Integer>();
+         while(root1!=null){
+             l1queue.add(root1.data);
+             root1 = root1.nextNode;
+         }
+
+         //iterate over second list
+         while(root2!=null && root2.nextNode!=null){
+             int l1val = l1queue.poll();
+             if(l1val==root2.data){
+                 //add to res
+                 if(res.data==Integer.MIN_VALUE){
+                     res.data = l1val;
+                 }
+                 else{
+                     //attach new node with l1val to res
+                     Node newNode = new Node(l1val);
+                     attachNodeInEnd(res,newNode);
+                 }
+                 root2 = root2.nextNode;
+             }
+             else if(l1val>root2.data){
+                 root2 = root2.nextNode;
+             }
+
+         }
+         return res;
+     }
+
+     //helper
+     public static void attachNodeInEnd(Node root,Node attach){
+        while(root.nextNode!=null){
+            root = root.nextNode;
+         }
+        root.nextNode =attach;
+     }
+    //time: O(n); space: O(n)
+    //50 mins
+
+     //q15
+    public static Integer detectLinked(Node root1, Node root2){
+        //find diff in count between l1, l2     //referred gfg
+        int c1 = getListCount(root1);
+        int c2= getListCount(root2);
+        int d = Math.abs(c1-c2);
+
+        if(c1>c2){
+            while(d!=0){
+                root1=root1.nextNode;
+                d--;
+            }
+        }
+        else{
+            while(d!=0){
+                root2=root2.nextNode;
+                d--;
+            }
+        }
+
+        //now root1 and root2 have same number of nodes
+        while(root1.nextNode!=null){
+            if(root1.data == root2.data){
+                return root1.data;
+            }
+            else{
+                root1=root1.nextNode;
+                root2 =root2.nextNode;
+            }
+        }
+        return Integer.MIN_VALUE;
+
+    }
+
+    //helper
+    public static Integer getListCount(Node root){
+        int count =0;
+        while(root.nextNode!=null){
+            count++;
+            root = root.nextNode;
+        }
+        return count;
+    }
+
+    //time: O(m+n); space: O(n)
+    //17 mins
+
+    //q17; (q16 skipped)
+    public static Node segregateEvenOdd(Node root){
+
+        PriorityQueue<Integer> evenQueue= new PriorityQueue<Integer>();
+        PriorityQueue<Integer> oddQueue= new PriorityQueue<Integer>();
+
+        Node sent = root;
+        while(sent.nextNode!=null){
+            int enc = sent.data;
+            if(enc%2==0){
+                evenQueue.add(enc);
+            }
+            else {
+                oddQueue.add(enc);
+            }
+            sent = sent.nextNode;
+        }
+
+        Node res;
+
+        // Creating iterator s
+        Iterator evenIter = evenQueue.iterator();
+        Iterator oddIter = oddQueue.iterator();
+
+        res=new Node(evenQueue.poll());
+
+        while(evenIter.hasNext()){
+            Node newNode = new Node(evenQueue.poll());
+            attachNodeInEnd(res,newNode);
+        }
+
+        while(oddIter.hasNext()){
+            Node newNode = new Node(oddQueue.poll());
+            attachNodeInEnd(res,newNode);
+        }
+
+        return res;
+    }
+
+    //time: O(n); space: O(n)
+    //14 mins
+
+
+    //q18
+    public static Node reverseIterative(Node root){
+        //need to store prev, curr, next
+        Node prev = null;
+        Node curr = root;
+        Node next = null;
+
+        while(curr.nextNode!=null){
+
+            //Notes: following steps must be in order->messed step 2 after step 3 and wasted a ton of time here
+
+            //1. stash next, reverse pointer
+            next = curr.nextNode;
+            curr.nextNode = prev;
+
+            //2. move to next
+            prev = curr;
+            curr=next;
+        }
+        return prev;
+    }
+    //time: O(n); space: O(1)
+    //20 mins +5 = 25 mins
 
 
 
