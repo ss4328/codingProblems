@@ -45,13 +45,25 @@ public class Main {
 //        Node common = Node.segregateEvenOdd(l1);
 
         //q18, q19 test code here
-        Node l1 = new Node(1);
-        l1.nextNode = new Node(2);
-        l1.nextNode.nextNode = new Node(3);
-        l1.nextNode.nextNode.nextNode = new Node(4);
-        l1.nextNode.nextNode.nextNode.nextNode = new Node(5);
+//        Node l1 = new Node(1);
+//        l1.nextNode = new Node(2);
+//        l1.nextNode.nextNode = new Node(3);
+//        l1.nextNode.nextNode.nextNode = new Node(4);
+//        l1.nextNode.nextNode.nextNode.nextNode = new Node(5);
+//
+//        Node common = Node.reverseRecursive(l1);
 
-        Node common = Node.reverseIterative(l1);
+        //q20 test code here
+        Node l1 = new Node(5);
+        l1.nextNode = new Node(10);
+        l1.nextNode.nextNode = new Node(15);
+        l1.nextNode.nextNode.nextNode = new Node(40);
+
+        Node l2 = new Node(2);
+        l2.nextNode = new Node(3);
+        l2.nextNode.nextNode = new Node(20);
+
+        Node Decr = Node.mergeReversed(l1,l2);
 
     }
 

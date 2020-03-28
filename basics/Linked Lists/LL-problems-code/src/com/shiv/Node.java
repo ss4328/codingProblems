@@ -553,7 +553,7 @@ public class Node {
         PriorityQueue<Integer> oddQueue= new PriorityQueue<Integer>();
 
         Node sent = root;
-        while(sent.nextNode!=null){
+        while(sent!=null){
             int enc = sent.data;
             if(enc%2==0){
                 evenQueue.add(enc);
@@ -612,6 +612,78 @@ public class Node {
     }
     //time: O(n); space: O(1)
     //20 mins +5 = 25 mins
+
+    //q19
+    public static Node reverseRecursive(Node root){
+        if(root==null || root.nextNode==null){
+            return root;
+        }
+        Node reversedHead = reverseRecursive(root.nextNode);
+        root.nextNode.nextNode = root;
+        root.nextNode = null;
+        return reversedHead;
+    }
+    //time: O(n); space: O(1)
+    //15 mins; took hints for the iterative case not for base case
+
+    //q20
+    public static Node mergeReversed(Node root1, Node root2){
+        //set both lists in decreasing order
+        Node r1 = reverseRecursive(root1);
+        Node r2 = reverseRecursive(root2);
+
+        //actually merge
+        Node res = mergeDecreaseing(r1,r2);
+        return res;
+    }
+
+    //helper
+    //todo: is there another way to do this? Iterative way? ASK. Had to look this up.
+    //probably recursion isn't as clear in my head as I'd like
+    public static Node mergeDecreaseing(Node root1, Node root2){
+        if(root1==null) return root2;
+        if(root2==null) return root1;
+
+        if(root1.data>root2.data){
+            root1.nextNode = mergeDecreaseing(root1.nextNode,root2);
+            return root1;
+        }
+        else{
+            root2.nextNode = mergeDecreaseing(root1, root2.nextNode);
+            return root2;
+        }
+    }
+    //time: O(n); space: O(n)
+    //45 mins; took hints for the mergeDecreasing
+
+
+
+
+
+
+
+    //q26
+    public static boolean detectIdentical(Node root1, Node root2){
+        try{
+            while(root1.nextNode!=null){
+                if(root1.data != root2.data) {
+                    //nothing
+                    return false;
+                }
+                root1 = root1.nextNode;
+                root2 = root2.nextNode;
+            }
+            return true;
+        }
+        catch(Exception ex){
+            System.out.println("list length not same");
+        }
+        finally {
+            return false;
+        }
+
+    }
+
 
 
 
