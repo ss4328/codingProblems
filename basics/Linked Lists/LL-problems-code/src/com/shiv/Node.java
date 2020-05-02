@@ -10,7 +10,6 @@ public class Node {
 
     //q1
     Node findNodeIter(int val, Node root){
-
         if(root.nextNode==null){
             return root;
         }
@@ -196,72 +195,131 @@ public class Node {
     }
     //space O(1); time O(n)
 
-    //q7 idk
-//    public static int detectAndCountLoop(Node root){
-//
-//    }
+    //q7 returns the count of loop if there's a loop. Else return -1;
+    public static int detectAndCountLoop(Node root){
+        Node slow = root;
+        Node fast = root;
+
+
+        while(slow.nextNode!=null&&fast.nextNode!=null&&fast.nextNode!=null){
+            slow = slow.nextNode;
+            fast = fast.nextNode;
+
+            if(slow==fast){
+                return countNodes(slow);
+            }
+        }
+        return -1;
+    }
+
+    //space O(1); time O(n)
+
+    //Helper q7 basically checks the count for which the looped node come visit itself again
+    static int countNodes(Node passed){
+
+        Node store = passed;
+        store = passed.nextNode;
+        int loopCount = 1;  //since we moved 1 in last line
+
+        while(store==passed){
+            loopCount++;
+            passed=passed.nextNode;
+        }
+
+        return loopCount;
+    }
 
     //q8
     //the minimum complexity must be atleast O(n) since we have to check each element
+//    public boolean isPalindrome(Node root){
+//
+//        //get mid element index and count
+//        if(root==null){
+//            return true;
+//        }
+//        int middleElement = 0;
+//        int count = 1;
+//        Node cur = root;
+//        while (cur.nextNode!=null){
+//            cur = cur.nextNode;
+//            count++;
+//        }
+//        if(count%2==0){
+//            middleElement = (count-1)/2;
+//        }
+//        else{
+//            middleElement = count/2;
+//        }
+//        System.out.println(middleElement);
+//
+//
+//        if(count==1){
+//            return true;
+//        }
+//        //actually do palindrome check
+//        Stack half = new Stack<Integer>();
+//        //if mid element is even we enter half of the elements, then check
+//        //if mid is odd, we enter elems till mid, disregard one then check
+//        cur = root;
+//        int i;
+//        for(i=0;i<=middleElement;i++){
+//            half.push(cur.data);
+//            if(cur.nextNode!=null){
+//                cur = cur.nextNode;
+//            }
+//        }
+//        if(count%2!=0){
+//            half.pop();
+//        }
+//        // cur = root;
+//        while(cur!=null){
+//            if((int)half.pop() != cur.data){
+//                return false;
+//            }
+//            else{
+//                if(cur.nextNode!=null){
+//                    cur = cur.nextNode;
+//                }
+//                else{
+//                    break;
+//                }
+//            }
+//        }
+//        return true;
+//    }
+    //time: O(n); space: O(n)
+    //lc -> mem usage -> 42.1MB less that 30%, 2ms -> faster than 43%
+
+
+    //^wrong approach, too dumb -_-
+
+    //new approach; fill in stack, then theck if the second iter == stack's pop vals
     public boolean isPalindrome(Node root){
 
-        //get mid element index and count
         if(root==null){
             return true;
         }
-        int middleElement = 0;
-        int count = 1;
-        Node cur = root;
-        while (cur.nextNode!=null){
-            cur = cur.nextNode;
-            count++;
-        }
-        if(count%2==0){
-            middleElement = (count-1)/2;
-        }
-        else{
-            middleElement = count/2;
-        }
-        System.out.println(middleElement);
 
+        Stack<Integer> s = new Stack<Integer>();
 
-        if(count==1){
-            return true;
+        Node rootcopy = root;
+
+        while(rootcopy!=null){
+            s.push(rootcopy.data);
+            rootcopy = rootcopy.nextNode;
         }
-        //actually do palindrome check
-        Stack half = new Stack<Integer>();
-        //if mid element is even we enter half of the elements, then check
-        //if mid is odd, we enter elems till mid, disregard one then check
-        cur = root;
-        int i;
-        for(i=0;i<=middleElement;i++){
-            half.push(cur.data);
-            if(cur.nextNode!=null){
-                cur = cur.nextNode;
-            }
-        }
-        if(count%2!=0){
-            half.pop();
-        }
-        // cur = root;
-        while(cur!=null){
-            if((int)half.pop() != cur.data){
+
+        while (root.nextNode != null) {
+
+            if(root.data!=s.pop()){
                 return false;
             }
-            else{
-                if(cur.nextNode!=null){
-                    cur = cur.nextNode;
-                }
-                else{
-                    break;
-                }
-            }
+
         }
         return true;
     }
+    //time: O(n); space: O(n)       more readable, guess more efficient
 
-    //time: O(n); space: O(n)
-    //lc -> mem usage -> 42.1MB less that 30%, 2ms -> faster than 43%
 
     //q9
 //    public void removeDuplicatesSorted(Node root){
@@ -283,25 +341,7 @@ public class Node {
 //
 //    }
 
-    //leetcode 83
 
-    //BS approach: saving too much and overcomplicating stuff.
-    //KEY: Don't save head?? Just return head in the end and manipulate list in code
-//    public void removeDuplicatesSorted(Node root){
-//        Node cur = root;
-//        int curVal = cur.data;
-//        while(cur.nextNode!=null){
-//            while(cur.nextNode.data==cur.data){
-//                //null check needed here
-//                cur = cur.nextNode;
-//            }
-//            Node nextNode = cur.nextNode;
-//            root.nextNode = nextNode;
-//
-//        }
-//    }
-
-    //q10 //leetcode 83
     public Node removeDuplicatesSorted(Node root){
         Node cur = root;
         while(cur!=null&&cur.nextNode!=null){
@@ -356,85 +396,25 @@ public class Node {
     //time: O(n); space: O(1)
 
     //q12
-    public void pairwiseSwap(Node root){
-        //here, we swap the first two, then mode ptrs by 2 and 2 for prev and next respectively
-
-        Node n1 = root;
-        Node n2 = root.nextNode;
-
-        while(n2.nextNode!=null){
-            swapNodes(n1.data,n2.data,root);
-            if(n2.nextNode!=null){
-                n2 = n2.nextNode;
-                if(n2.nextNode!=null){
-                    n2 = n1.nextNode;
-                }
-            }
+    public Node pairwiseSwapRecur(Node root){
+        if(root==null || getListCount(root)<2){
+            return root;
         }
+
+        //recursive case
+        Node cur = root;
+        Node next = cur.nextNode;
+        int temp = root.data;
+
+        cur.data = next.data;
+        next.data = temp;
+
+        Node right = pairwiseSwapRecur(cur.nextNode.nextNode);
+        cur.nextNode.nextNode=right;
+        return cur;
+
     }
     //time: O(n); space: O(1)
-
-    //need to clear some basic concepts before moving forward; attempting easy leetcode questions.
-
-    //leetcode 1290
-//    Given head which is a reference node to a singly-linked list. The value of each node in the linked list is either 0 or 1. The linked list holds the binary representation of a number.
-//
-//    Return the decimal value of the number in the linked list.
-//    public int getDecimalValue(ListNode head) {
-//        int res =0;
-//        ListNode dup = head;
-//
-//        int count =-1;  //max pow
-//        while(dup!=null){
-//            count++;
-//            dup = dup.next;
-//
-//        }
-//        while(head!=null){
-//            if(head.val==1){
-//                res+=Math.pow(2,count);
-//            }
-//            else{
-//
-//            }
-//            head = head.next;
-//            count--;
-//        }
-//        return res;
-//    }
-
-    //Leetcode 206: reverse Linked List
-//    public ListNode reverseList(ListNode head) {
-//        Stack<Integer> numStack = new Stack<Integer>();
-//
-//        while(head!=null){
-//            numStack.push(head.val);
-//            head = head.next;
-//        }
-//
-//        ListNode res;
-//        ListNode resHead;
-//        if(!numStack.empty()){
-//            res = new ListNode(numStack.pop());
-//            resHead = res;
-//        }
-//        else{
-//            return head;
-//        }
-//
-//        while(!numStack.empty()){
-//            res.next = new ListNode(numStack.pop());
-//            res = res.next;
-//        }
-//
-//        return resHead;
-//    }
-    //time: O(n); space: O(n)
-
-    //Runtime: 2 ms, faster than 8.30% of Java online submissions for Reverse Linked List.
-    //Memory Usage: 38.3 MB, less than 5.04% of Java online submissions for Reverse Linked List.
-    //obviously there's another better way, I'm using too much memory, making list again and it's still too slow :/
-
 
     //q13
      public static void moveLastToFirst(Node root){
@@ -549,41 +529,121 @@ public class Node {
     //q17; (q16 skipped)
     public static Node segregateEvenOdd(Node root){
 
-        PriorityQueue<Integer> evenQueue= new PriorityQueue<Integer>();
-        PriorityQueue<Integer> oddQueue= new PriorityQueue<Integer>();
+        Node evenListHead = new Node(Integer.MIN_VALUE);
+        Node evenListTail = evenListHead;
+        Node oddListHead=new Node(Integer.MIN_VALUE);
+        Node oddListTail = oddListHead;
 
         Node sent = root;
         while(sent!=null){
             int enc = sent.data;
             if(enc%2==0){
-                evenQueue.add(enc);
+                if(evenListTail.data ==Integer.MIN_VALUE){
+                    evenListTail.data = enc;
+                }
+                else{
+                    evenListTail.nextNode = new Node(enc);
+                    evenListTail = evenListTail.nextNode;
+                }
             }
             else {
-                oddQueue.add(enc);
+                if(oddListTail.data==Integer.MIN_VALUE){
+                    oddListTail.data = enc;
+                }
+                else{
+                    oddListTail.nextNode = new Node(enc);
+                    oddListTail = oddListTail.nextNode;
+                }
             }
             sent = sent.nextNode;
         }
 
         Node res;
 
-        // Creating iterator s
-        Iterator evenIter = evenQueue.iterator();
-        Iterator oddIter = oddQueue.iterator();
+        res=new Node(evenListHead.data);
+        evenListHead = evenListHead.nextNode;
 
-        res=new Node(evenQueue.poll());
-
-        while(evenIter.hasNext()){
-            Node newNode = new Node(evenQueue.poll());
+        while(evenListHead!=null){
+            Node newNode = new Node(evenListHead.data);
             attachNodeInEnd(res,newNode);
+            evenListHead = evenListHead.nextNode;
         }
 
-        while(oddIter.hasNext()){
-            Node newNode = new Node(oddQueue.poll());
+        while(oddListHead!=null){
+            Node newNode = new Node(oddListHead.data);
             attachNodeInEnd(res,newNode);
+            oddListHead = oddListHead.nextNode;
         }
 
         return res;
     }
+
+    //Similar: leetcode 328
+//    public ListNode oddEvenList(ListNode head) {
+//        //by default list is sorted -_- -_- -_-
+//        //use 2 linked lists
+//
+//        if(head==null||head.next==null){
+//            return head;
+//        }
+//
+//        ListNode evenListHead = new ListNode(Integer.MIN_VALUE);
+//        ListNode evenListTail = evenListHead;
+//        ListNode oddListHead=new ListNode(Integer.MIN_VALUE);
+//        ListNode oddListTail = oddListHead;
+//
+//        ListNode sent = head;
+//        int count =1;
+//        while(sent!=null){
+//            int enc = sent.val;
+//            if(count%2==0){
+//                if(evenListTail.val ==Integer.MIN_VALUE){
+//                    evenListTail.val = enc;
+//                }
+//                else{
+//                    evenListTail.next = new ListNode(enc);
+//                    evenListTail = evenListTail.next;
+//                }
+//            }
+//            else {
+//                if(oddListTail.val==Integer.MIN_VALUE){
+//                    oddListTail.val = enc;
+//                }
+//                else{
+//                    oddListTail.next = new ListNode(enc);
+//                    oddListTail = oddListTail.next;
+//                }
+//            }
+//            sent = sent.next;
+//            count++;
+//        }
+//
+//        ListNode res;
+//
+//        res=new ListNode(oddListHead.val);
+//        oddListHead = oddListHead.next;
+//
+//        while(oddListHead!=null){
+//            ListNode newNode = new ListNode(oddListHead.val);
+//            attachNodeInEnd(res,newNode);
+//            oddListHead = oddListHead.next;
+//        }
+//
+//        while(evenListHead!=null){
+//            ListNode newNode = new ListNode(evenListHead.val);
+//            attachNodeInEnd(res,newNode);
+//            evenListHead = evenListHead.next;
+//        }
+//
+//        return res;
+//    }
+//    //helper
+//    public static void attachNodeInEnd(ListNode root,ListNode attach){
+//        while(root.next!=null){
+//            root = root.next;
+//        }
+//        root.next =attach;
+//    }
 
     //time: O(n); space: O(n)
     //14 mins
@@ -656,11 +716,40 @@ public class Node {
     //time: O(n); space: O(n)
     //45 mins; took hints for the mergeDecreasing
 
+    //q21
+    public static Node reverseEveryKNodes(Node root, int k){
+        if(root==null || getListCount(root)<k){
+            return root;
+        }
 
+        //isolate first k nodes
+        int i=1;                    //i=1 cuz last node handling doesn't work in i=0
+        Node temp=root;
+        while(i<k){
+            temp = temp.nextNode;
+            i++;
+        }
+        //save the next node
+        Node nextHead = temp.nextNode;
 
+        temp.nextNode=null;
+        //reverse the list so far
+        Node newHead = reverseRecursive(root);
 
+        //reverse everything else (recursion breaks down to every k)
+        Node rightNode = reverseEveryKNodes(nextHead,k);
 
+        temp=newHead;  //?
 
+        //get to the end of temp
+        while(temp.nextNode!=null){
+            temp = temp.nextNode;
+        }
+        //join the two parts (on each recursion step)
+        temp.nextNode=rightNode;
+        return newHead;
+
+    }
 
     //q26
     public static boolean detectIdentical(Node root1, Node root2){
@@ -683,21 +772,6 @@ public class Node {
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
