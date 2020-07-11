@@ -1,0 +1,49 @@
+#!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+#Optimized-> 
+def minimumSwaps(arr):
+
+
+#BruteForce-> using insertionSort: O(N^2) -> fails 8/14 cases
+def minimumSwapsIS(arr):
+    count=0
+    sortedIndex = 0
+    isSorted = True
+    for i in range(0, len(arr)):
+        minIndex = i
+        
+        for j in range(i+1, len(arr)):
+            if arr[j]<arr[minIndex]:
+                minIndex = j
+                # isSorted = False
+        
+        if(minIndex!=i):
+            temp = arr[i]
+            arr[i] = arr[minIndex]
+            arr[minIndex] = temp
+            count+=1
+        # else:
+        #     break
+    
+    print(arr)
+    return count
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(raw_input())
+
+    arr = map(int, raw_input().rstrip().split())
+
+    res = minimumSwaps(arr)
+
+    fptr.write(str(res) + '\n')
+
+    fptr.close()
+

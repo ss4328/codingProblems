@@ -34,7 +34,7 @@ public class KStacks {
             pushIndex = pushIndex+1;
             this.currentIndexes[sn] = pushIndex;
         }
-        else throw  new StackOverflowError();
+        else throw new StackOverflowError();
 
     }
 

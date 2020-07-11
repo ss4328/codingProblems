@@ -104,6 +104,8 @@ public class Stack {
 
     //s1p7: delete the middle element of the stack
     //easy; did similar in linkedList set 1
+    //Hint: using recursion
+    //
     //not really sure if this is the correct way since I'm leveraging the linked list fns more than the stack fns
     public void removeMiddleViaLL(){
         //find middle node
@@ -171,7 +173,8 @@ public class Stack {
         return slow;
     }
 
-
+    //q8 hint: insert element at correct position in stack
+    //q9
 
 
 }
