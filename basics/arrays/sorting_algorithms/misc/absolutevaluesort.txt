@@ -1,0 +1,49 @@
+import math
+from bisect import bisect_left 
+
+
+#return -1 if not found in arr else return the index of found elem
+def b_search(a, x): 
+  i = bisect_left(a, x) 
+  if i != len(a) and a[i] == x: 
+    return i 
+  else: 
+    return -1
+
+
+def absSort(arr):
+  """
+	@param arr: int[]
+	@return: int[]
+	"""
+
+  arr.sort(key=lambda x:(abs(x), x))
+  
+  
+  
+  negvs = []
+  for i, num in enumerate(arr): # for num in arr:
+    if num<0:
+      negvs.append(num)
+      arr[i] = -1*num            #switch the negative number to positive in real array
+  # 2, 7, 2, 2, 0
+  
+  
+ 
+  arr.sort()
+   # 0,2,2,2,7
+  negvs.sort()
+  #-7, -2, -2 
+  
+  for i in range(0, len(arr)):
+  #if the number's negative version is found in the negvs list
+    foundIndex = b_search(negvs, -1*arr[i])
+    if foundIndex is not -1:      
+      arr[i] = -1*arr[i]      #negatives to positives in original array
+      negvs.pop(foundIndex)   #removed to handle duplicates
+      
+  return arr
+
+arr = [2, -7, -2, -2, 0]
+res = absSort(arr)
+print res

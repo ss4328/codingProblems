@@ -4,11 +4,22 @@ def quickSort(alist):
 def quickSortHelper(alist,first,last):
    if first<last:
 
-       splitpoint = partition(alist,first,last)
+       splitpoint = partition(alist, first, last)
 
        quickSortHelper(alist,first,splitpoint-1)
        quickSortHelper(alist,splitpoint+1,last)
 
+#
+# def partition(A,p,r):
+#   x = A[r]
+#   i = p
+#   while (A[i]<=x) and i<r:
+#     i = i+1
+#   for j in range(i+1,r):
+#     if A[j]<=x:
+#       A[i], A[j] = A[j], A[i]
+#       i=i+1
+#   return i-1
 
 def partition(alist,first,last):
    pivotvalue = alist[first]
@@ -43,5 +54,6 @@ def partition(alist,first,last):
 
 if __name__ == "__main__":
    test = [9,2,6,4,3,5,1]
-   quickSort(test)
+   print(partition(test,0,len(test)-1))
+   # quickSort(test)
    print(test)
