@@ -2,7 +2,7 @@
 
 ## About
  
-This is a repository for organizing theory and problems for Computer Science's famous Data Structures and Algorithms. These are also numerous DSA problems/solutions in this repo, which I've compiled either myself or with the help of some very amazing peers that I've met over the years! Problems are compiled from Leetcode, Hackerrank and other famous CS problem websites like project Euler. This is the structure of the Repo
+This part of the repo just contains some concept-building DSA theory and problems. If you're coding looking for coding problems from LC/hackerrank, go to root/platformns.
 
 
 ### Basics
@@ -28,20 +28,14 @@ This is a repository for organizing theory and problems for Computer Science's f
    * Other interesting graph problems
    * Etc (anything interesting basically)
 
-### Platforms
-* Leetcode
-* Hackerrank
-
+## Basics -> Theory
+The directories are made for each DS (and even for some famous patterns and algorithms like Kruskal's algo or sliding window pattern). The theory is just made for the essential information and no extra clutter. Readme files contain the theory and are printable in pdf. 
 
 ##  Basics -> Psets: 
 In the basics repo, there's theory/visualizations and any problems are generally in the increasing order of difficulty in each pset. However, some psets are more rigorous than others (arrays: searching I is definitely harder than say Stacks - I). Usually, the first 30-40% are leetcode easies, followed my mostly leetcode mediums. Some are leetcode hard in between but I'm not one for spoilers. 
 
 
 I'll try to make sure that each solution set has its own runtime complexity documented. I'll also try to find out that each problem also contain some requirement for time/space complexity. However, I don't promise that.
-
-## Leetcode/hackerrank problems:
-
-Every problem has their problem number in the file name, and runtime complexity in the code comments. I'm also trying to generate another readme and repo to organize common problem patterns like sliding window and two pointers, so that each of these patterns and their problems could be organized better
 
 Enjoy your visit B|
 
