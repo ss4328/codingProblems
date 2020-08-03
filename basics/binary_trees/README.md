@@ -124,8 +124,6 @@ class Solution(object):
 
 For the iterative solution, the time complexity is apparently the same with recursion solution which is O(N). The space complexity is also O(N) since in the worst case, we will have all the nodes in the stack. There are some other solutions for iterative traversal which can reduce the space complexity to O(1).
 
-
-
 ## Uses
 Uses of Inorder
 In case of binary search trees (BST), Inorder traversal gives nodes in non-decreasing order. To get nodes of BST in non-increasing order, a variation of Inorder traversal where Inorder traversal s reversed can be used.
@@ -135,6 +133,19 @@ Preorder traversal is used to create a copy of the tree. Preorder traversal is a
 Postorder traversal is used to delete the tree. Please see the question for deletion of tree for details. Postorder traversal is also useful to get the postfix expression of an expression tree.
 
 Time Complexity: O(n) for all traversals as all nodes are being visited
+
+## More to read:
+The two approaches:
+* Bottoms up
+* Top Down 
+
+## Problems
+1) Code up the BST class, then make in-order, pre-order, and post-order traversals
+2) Level traversal: nodes at each level are inserted into a common list, return the list of lists
+3) LC#98 Validate BST 
+4) LC$104 Maximum Depth of Binary Tree
+4) LC#102 level order traversal
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
