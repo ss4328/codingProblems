@@ -145,7 +145,7 @@ The two approaches:
 3) LC#98 Validate BST 
 4) LC$104 Maximum Depth of Binary Tree
 4) LC#102 level order traversal
-
+5) LC#101 Symmetric Trees
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
