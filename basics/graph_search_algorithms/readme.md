@@ -74,6 +74,54 @@ class Solution(object):
 
 ```
 
+##BFS
+
+Breadth--First Search(BFS) is a method for exploring a tree or graph. In a BFS, you first explore all the nodes one step away, then all the nodes two steps away, etc.
+
+Breadth-first search is like throwing a stone in the center of a pond. The nodes you explore "ripple out" from the starting point.
+
+DFS is all about diving as deep as possible before coming back to take a dive again. In DFS, we: 
+1) push to stack, 
+2) pop top , 
+3) retrieve unvisited neighbors of top, push them to stack 
+4) repeat 1,2,3 while stack is not empty
+
+```python
+graph = {
+  'A' : ['B','C'],
+  'B' : ['D', 'E'],
+  'C' : ['F'],
+  'D' : [],
+  'E' : ['F'],
+  'F' : []
+}
+
+visited = [] # List to keep track of visited nodes.
+queue = []     #Initialize a queue
+
+def bfs(visited, graph, node):
+  visited.append(node)
+  queue.append(node)
+
+  while queue:
+    s = queue.pop(0) 
+    print (s, end = " ") 
+
+    for neighbour in graph[s]:
+      if neighbour not in visited:
+        visited.append(neighbour)
+        queue.append(neighbour)
+
+# Driver Code
+bfs(visited, graph, 'A')
+```
+Advantages:
+
+A BFS will find the shortest path between the starting point and any other reachable node. A depth-first search will not necessarily find the shortest path.
+Disadvantages
+
+A BFS on a binary tree generally requires more memory than a DFS.
+
 ## A problem solving perspective
 Like 25% percent of intermediate/medium level problems (tree and string) simply boil down to a DFS / BFS. 
 
