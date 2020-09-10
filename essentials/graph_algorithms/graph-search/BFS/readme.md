@@ -72,3 +72,9 @@ class Solution(object):
 ```
 
 The corner cases were defintely a pain in the bum. But I guess optimizing plain BFS would have it's own pains. Bi-directional BFS would work nicely too but my own obstinate nature got the better off me. I just wanted an optimized working BFS here, which I did and that's the end of it. 
+
+## Other favorite questions:
+200. Number of Islands
+994. Rotting oranges
+
+I'd suggest doing 200. Number of islands, tehn knights move, then rotting oranges because of corner cases or simply the amount of effot in implementation.
